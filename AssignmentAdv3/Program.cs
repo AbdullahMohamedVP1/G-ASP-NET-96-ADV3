@@ -9,6 +9,12 @@
             Console.WriteLine();
             Exercise3();
             Console.WriteLine();
+            Exercise4();
+            Console.WriteLine();
+            Exercise5();
+            Console.WriteLine();
+            Exercise6();
+            Console.WriteLine();
         }
         #region Exercise1
         static void Exercise1()
@@ -119,6 +125,96 @@
 
             Console.WriteLine("Keys: " + string.Join(", ", phoneBook.Keys));
             Console.WriteLine("Values: " + string.Join(", ", phoneBook.Values));
+        }
+        #endregion
+
+        #region Exercise4,5,6
+        static void Exercise4()
+        {
+            Console.WriteLine("---------- Exercise 4 ----------");
+
+            HashSet<string> emails = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            emails.Add("ahmed@test.com");
+            emails.Add("AHMED@test.com");
+            emails.Add("sara@test.com");
+            emails.Add("Sara@Test.Com");
+
+            Console.WriteLine("Count: " + emails.Count);
+            Console.WriteLine("Only 2 are stored because the comparer is case insensitive so duplicates with different casing are treated as the same email");
+
+            HashSet<int> setA = new HashSet<int> { 1, 2, 3, 4, 5 };
+            HashSet<int> setB = new HashSet<int> { 4, 5, 6, 7, 8 };
+
+            HashSet<int> unionSet = new HashSet<int>(setA);
+            unionSet.UnionWith(setB);
+            Console.WriteLine("Union: " + string.Join(", ", unionSet));
+
+            HashSet<int> intersectSet = new HashSet<int>(setA);
+            intersectSet.IntersectWith(setB);
+            Console.WriteLine("Intersect: " + string.Join(", ", intersectSet));
+
+            HashSet<int> exceptSet = new HashSet<int>(setA);
+            exceptSet.ExceptWith(setB);
+            Console.WriteLine("Except: " + string.Join(", ", exceptSet));
+
+            HashSet<int> subsetCheck = new HashSet<int> { 1, 2 };
+            Console.WriteLine("{1,2} is subset of Set A: " + subsetCheck.IsSubsetOf(setA));
+        }
+        static void Exercise5()
+        {
+            Console.WriteLine("---------- Exercise 5 ----------");
+
+            Queue<string> printQueue = new Queue<string>();
+            printQueue.Enqueue("Report.pdf");
+            printQueue.Enqueue("Invoice.pdf");
+            printQueue.Enqueue("Letter.docx");
+            printQueue.Enqueue("Resume.pdf");
+            printQueue.Enqueue("Photo.jpg");
+
+            Console.WriteLine("Queue contents: " + string.Join(", ", printQueue));
+            Console.WriteLine("Count: " + printQueue.Count);
+
+            string next = printQueue.Peek();
+            Console.WriteLine("Next to print (Peek): " + next);
+
+            while (printQueue.Count > 0)
+            {
+                string doc = printQueue.Dequeue();
+                Console.WriteLine("Printing: " + doc);
+            }
+
+            bool success = printQueue.TryDequeue(out string result);
+            Console.WriteLine("TryDequeue on empty queue succeeded: " + success + " result is null or default: " + (result == null));
+        }
+        static void Exercise6()
+        {
+            Console.WriteLine("---------- Exercise 6 ----------");
+
+            Stack<string> history = new Stack<string>();
+            history.Push("google.com");
+            history.Push("github.com");
+            history.Push("stackoverflow.com");
+            history.Push("youtube.com");
+            history.Push("claude.ai");
+
+            Console.WriteLine("Current page (Peek): " + history.Peek());
+
+            for (int i = 0; i < 3; i++)
+            {
+                string leftPage = history.Pop();
+                Console.WriteLine("Leaving: " + leftPage);
+            }
+
+            Console.WriteLine("Current page after going back: " + history.Peek());
+
+            while (history.Count > 0)
+            {
+                history.Pop();
+            }
+
+            bool popped = history.TryPop(out string page);
+            Console.WriteLine("TryPop on empty stack succeeded: " + popped + " page is null or default: " + (page == null));
         }
         #endregion
     }
